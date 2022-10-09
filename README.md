@@ -33,7 +33,8 @@ This is a boilerplate template for a new terraform repository.
 - Git
 - AWS CLI
 - Terraform-Docs
-- TF-Lint
+- TFLint
+- TFEnv
 - Checkov
 - Pre-Commit
 
@@ -64,6 +65,12 @@ aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [default]
 region=us-west-2
 output=json
+```
+
+#### Install Required Version Of Terraform
+
+```bash
+tfenv install && tfenv use
 ```
 
 ### Validate Terraform

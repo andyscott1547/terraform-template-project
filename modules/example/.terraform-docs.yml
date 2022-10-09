@@ -1,0 +1,14 @@
+formatter: markdown table
+
+settings:
+  anchor: false
+  escape: false
+  indent: 4
+
+output:
+  file: ../../README.md
+  mode: inject
+  template: |-
+    <!-- BEGIN_EXAMPLE_DOCS -->
+    {{ .Content }}
+    <!-- END_EXAMPLE_DOCS -->

@@ -1,0 +1,74 @@
+# To use:
+# Add as a pre-commit hook with Git Defender: git defender --precommit_tool_setup
+
+# Pre-reqs:
+# Install pre-commit
+# brew install pre-commit
+# or
+# pip install pre-commit
+
+
+# Install tflint and tfsec
+
+# brew install tfsec
+# or
+# go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
+
+# brew install tflint
+# or
+# curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+# Apply to all files without commiting:
+#   pre-commit run --all-files
+# Update this file:
+#   pre-commit autoupdate
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    # -   id: check-added-large-files
+    -   id: check-ast
+    -   id: fix-byte-order-marker
+    -   id: check-case-conflict
+    -   id: check-docstring-first
+    -   id: check-executables-have-shebangs
+    -   id: check-json
+    -   id: debug-statements
+    -   id: detect-private-key
+    -   id: detect-aws-credentials
+    -   id: mixed-line-ending
+-   repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.17
+    hooks:
+    #- id: terraform-fmt
+    - id: terraform-validate
+    # Depends on brew install tflint or
+    # curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+    - id: tflint
+      args:
+        - "--module"
+        - "--config=.tflint.hcl"
+-   repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.74.1 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+        # brew install tfsec
+        # - id: terraform_tfsec
+        # brew install checkov or pip install checkov
+        - id: terraform_fmt
+          args:
+            - --args=-diff
+            - --args=-write=true
+            - --args=-recursive
+        - id: terraform_checkov
+          args:
+            - --args=-s
+- repo: https://github.com/terraform-docs/terraform-docs
+  rev: "v0.16.0"             # e.g. "v0.11.2"
+  hooks:
+    - id: terraform-docs-go
+      args: ["."]  # e.g. ["--output-file", "README.md", "./mymodule/path"]

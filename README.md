@@ -73,6 +73,8 @@ output=json
 tfenv install && tfenv use
 ```
 
+## Quick Start
+
 ### Validate Terraform
 
 Format

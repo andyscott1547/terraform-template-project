@@ -1,6 +1,3 @@
-# To use:
-# Add as a pre-commit hook with Git Defender: git defender --precommit_tool_setup
-
 # Pre-reqs:
 # Install pre-commit
 # brew install pre-commit
